@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Security: CSP is set server-side via response headers; no need for meta CSP tag #}
+    <title>Quantium — Hire-to-Onboard AI Swarm</title>
+    <style>
+        /* ── Reset & Variables ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* Quantium brand palette */
+            --q-darkest:     #09051A;
+            --q-dark:        #110832;
+            --q-dark-mid:    #1D1245;
+            --q-purple:      #5B1EBE;
+            --q-purple-mid:  #7140D4;
+            --q-purple-light:#9B66FF;
+            --q-purple-pale: #C4A3FF;
+            --q-white:       #FFFFFF;
+            --q-off-white:   #F8F7FF;
+            --q-border:      #E3DDF5;
+            --q-border-dark: #D0C8EF;
+            --q-text:        #1A0F2E;
+            --q-text-mid:    #3D2F6B;
+            --q-muted:       #7B6E98;
+
+            /* Status colours */
+            --c-red:    #DC2626;
+            --c-amber:  #D97706;
+            --c-green:  #16A34A;
+            --c-blue:   #2563EB;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                         "Helvetica Neue", Arial, sans-serif;
+            background: var(--q-off-white);
+            color: var(--q-text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: var(--q-dark);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 18px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo-wordmark {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--q-white);
+            letter-spacing: -0.6px;
+        }
+
+        .logo-sep {
+            width: 1px;
+            height: 18px;
+            background: rgba(255,255,255,0.25);
+            margin: 0 16px;
+            flex-shrink: 0;
+        }
+
+        .logo-product {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--q-purple-pale);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header-pill {
+            background: rgba(91,30,190,0.25);
+            border: 1px solid rgba(155,102,255,0.35);
+            color: var(--q-purple-pale);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(160deg, var(--q-darkest) 0%, var(--q-dark) 40%, #1E0A56 100%);
+            border-bottom: 3px solid var(--q-purple);
+            padding: 44px 0 48px;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 32px;
+        }
+
+        .hero-copy h1 {
+            font-size: 34px;
+            font-weight: 800;
+            color: var(--q-white);
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .hero-copy h1 em {
+            font-style: normal;
+            color: var(--q-purple-light);
+        }
+
+        .hero-copy p {
+            color: rgba(255,255,255,0.55);
+            font-size: 15px;
+            max-width: 520px;
+            line-height: 1.65;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            flex-shrink: 0;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--q-purple-light);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── Main ── */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 32px 64px;
+        }
+
+        /* ── Section ── */
+        .section {
+            margin-bottom: 44px;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .step-num {
+            width: 30px;
+            height: 30px;
+            background: var(--q-purple);
+            color: white;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--q-text);
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--q-muted);
+            margin-top: 1px;
+        }
+
+        /* ── Profile Cards ── */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .profile-card {
+            background: var(--q-white);
+            border: 2px solid var(--q-border);
+            border-radius: 14px;
+            padding: 24px;
+            cursor: pointer;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+            position: relative;
+            user-select: none;
+            outline: none;
+        }
+
+        .profile-card:hover {
+            border-color: var(--q-purple-mid);
+            box-shadow: 0 6px 24px rgba(91,30,190,0.10);
+            transform: translateY(-1px);
+        }
+
+        .profile-card:focus-visible {
+            border-color: var(--q-purple);
+            box-shadow: 0 0 0 3px rgba(91,30,190,0.2);
+        }
+
+        .profile-card.selected {
+            border-color: var(--q-purple);
+            box-shadow: 0 0 0 3px rgba(91,30,190,0.12), 0 6px 24px rgba(91,30,190,0.12);
+        }
+
+        /* Checkmark tick on selected card */
+        .profile-card .card-check {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 24px;
+            height: 24px;
+            background: var(--q-purple);
+            color: white;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .profile-card.selected .card-check {
+            display: flex;
+        }
+
+        /* Urgency badge */
+        .urgency-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .urgency-badge.high   { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+        .urgency-badge.medium { background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; }
+        .urgency-badge.low    { background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; }
+
+        .urgency-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* Avatar */
+        .profile-avatar {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--q-purple) 0%, var(--q-purple-light) 100%);
+            color: white;
+            font-size: 17px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--q-text);
+            margin-bottom: 3px;
+        }
+
+        .profile-role {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--q-purple);
+            margin-bottom: 14px;
+        }
+
+        .profile-details {
+            border-top: 1px solid var(--q-border);
+            padding-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .profile-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12.5px;
+            color: var(--q-muted);
+            line-height: 1.4;
+        }
+
+        .detail-icon { flex-shrink: 0; font-size: 13px; }
+
+        /* ── Run Section ── */
+        .run-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .run-btn {
+            background: var(--q-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 13px 30px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+            letter-spacing: 0.1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .run-btn:hover:not(:disabled) { background: var(--q-purple-mid); }
+        .run-btn:active:not(:disabled) { transform: scale(0.985); }
+
+        .run-btn:disabled {
+            background: #C4B8E8;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .run-hint {
+            font-size: 13px;
+            color: var(--q-muted);
+        }
+
+        /* ── Stream Panel ── */
+        .stream-panel {
+            background: #09051A;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(155,102,255,0.15);
+        }
+
+        .stream-panel-bar {
+            background: #130C30;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .term-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .term-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .term-dot.r { background: #FF5F57; }
+        .term-dot.y { background: #FEBC2E; }
+        .term-dot.g { background: #28C840; }
+
+        .stream-panel-name {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            font-family: "SF Mono", "Fira Code", "Roboto Mono", Consolas, monospace;
+            margin-left: 6px;
+        }
+
+        .stream-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11.5px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .status-dot.live {
+            background: #28C840;
+            box-shadow: 0 0 8px rgba(40,200,64,0.6);
+            animation: blink 1.2s ease infinite;
+        }
+
+        .status-dot.done { background: #28C840; }
+        .status-dot.error { background: #FF5F57; }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.4; }
+        }
+
+        .stream-log {
+            padding: 18px 20px;
+            min-height: 180px;
+            max-height: 360px;
+            overflow-y: auto;
+            font-family: "SF Mono", "Fira Code", "Roboto Mono", Consolas, monospace;
+            font-size: 12.5px;
+            line-height: 1.75;
+            scroll-behavior: smooth;
+        }
+
+        .stream-log:empty::before {
+            content: "Waiting for swarm to start…";
+            color: rgba(255,255,255,0.15);
+            font-style: italic;
+        }
+
+        .event-line {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            animation: fadein 0.2s ease;
+        }
+
+        @keyframes fadein {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        .event-ts {
+            color: rgba(255,255,255,0.18);
+            font-size: 10px;
+            flex-shrink: 0;
+            min-width: 52px;
+        }
+
+        .event-tag {
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        .tag-session { background: rgba(91,30,190,0.25); color: #C4A3FF; border: 1px solid rgba(155,102,255,0.3); }
+        .tag-spawn   { background: rgba(155,102,255,0.2); color: #B79CFC; border: 1px solid rgba(155,102,255,0.3); }
+        .tag-run     { background: rgba(37,99,235,0.2);   color: #93C5FD; border: 1px solid rgba(37,99,235,0.3); }
+        .tag-send    { background: rgba(217,119,6,0.2);   color: #FCD34D; border: 1px solid rgba(217,119,6,0.3); }
+        .tag-recv    { background: rgba(22,163,74,0.2);   color: #86EFAC; border: 1px solid rgba(22,163,74,0.3); }
+        .tag-tool    { background: rgba(100,116,139,0.2); color: #CBD5E1; border: 1px solid rgba(100,116,139,0.3); }
+        .tag-done    { background: rgba(22,163,74,0.3);   color: #4ADE80; border: 1px solid rgba(22,163,74,0.4); }
+        .tag-error   { background: rgba(220,38,38,0.2);   color: #FCA5A5; border: 1px solid rgba(220,38,38,0.3); }
+
+        .event-text { color: rgba(255,255,255,0.72); flex: 1; word-break: break-word; }
+
+        /* ── Results Card ── */
+        .results-card {
+            background: var(--q-white);
+            border: 1px solid var(--q-border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(91,30,190,0.06);
+        }
+
+        .results-header {
+            background: linear-gradient(135deg, var(--q-purple) 0%, var(--q-purple-mid) 100%);
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .results-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .results-icon {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .results-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .results-subtitle {
+            color: rgba(255,255,255,0.65);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .results-badge {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
+
+        /* ── Markdown output styles ── */
+        .results-body {
+            padding: 36px;
+            line-height: 1.75;
+            color: var(--q-text);
+        }
+
+        .results-body h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--q-text);
+            margin: 0 0 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--q-border);
+            line-height: 1.25;
+        }
+
+        .results-body h2 {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--q-purple);
+            margin: 28px 0 10px;
+            line-height: 1.3;
+        }
+
+        .results-body h3 {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--q-text-mid);
+            margin: 20px 0 8px;
+        }
+
+        .results-body p {
+            margin-bottom: 12px;
+            color: var(--q-text);
+        }
+
+        .results-body ul, .results-body ol {
+            margin: 8px 0 14px 0;
+            padding-left: 22px;
+        }
+
+        .results-body li { margin-bottom: 5px; }
+
+        .results-body strong { font-weight: 700; color: var(--q-text); }
+
+        .results-body em { font-style: italic; color: var(--q-text-mid); }
+
+        .results-body code {
+            background: var(--q-off-white);
+            border: 1px solid var(--q-border);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+            font-size: 12px;
+        }
+
+        .results-body pre {
+            background: #F2EEF9;
+            border: 1px solid var(--q-border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 14px 0;
+        }
+
+        .results-body pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 12.5px;
+        }
+
+        .results-body blockquote {
+            border-left: 3px solid var(--q-purple-light);
+            padding: 6px 0 6px 16px;
+            color: var(--q-muted);
+            margin: 12px 0;
+            font-style: italic;
+        }
+
+        .results-body hr {
+            border: none;
+            border-top: 1px solid var(--q-border);
+            margin: 22px 0;
+        }
+
+        /* Session link box */
+        .session-link-box {
+            margin-top: 28px;
+            padding: 14px 18px;
+            background: var(--q-off-white);
+            border: 1px solid var(--q-border);
+            border-radius: 8px;
+            font-size: 12.5px;
+            color: var(--q-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .session-link-box a {
+            color: var(--q-purple);
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .session-link-box a:hover { text-decoration: underline; }
+
+        /* Streaming cursor */
+        .streaming-cursor::after {
+            content: "▋";
+            color: var(--q-purple-light);
+            animation: cursor-blink 0.9s step-end infinite;
+        }
+
+        @keyframes cursor-blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; }
+        }
+
+        /* ── Utilities ── */
+        [hidden] { display: none !important; }
+
+        /* ── Responsive ── */
+        @media (max-width: 920px) {
+            .profiles-grid { grid-template-columns: 1fr; }
+            .hero-stats { display: none; }
+            .header-inner, .hero-inner, .main { padding-left: 16px; padding-right: 16px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-copy h1 { font-size: 26px; }
+            .results-body { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <span class="logo-wordmark">Quantium</span>
+            <div class="logo-sep"></div>
+            <span class="logo-product">Hire-to-Onboard</span>
+        </div>
+        <div class="header-pill">AI Swarm &middot; Demo</div>
+    </div>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-copy">
+            <h1>Day-1 Readiness,<br><em>Automated.</em></h1>
+            <p>
+                Select a new hire to trigger the Quantium onboarding swarm — four AI
+                specialists run in parallel to produce a complete day-1 readiness pack:
+                offer confirmation, IT provisioning, buddy matching, and a personalised
+                welcome packet.
+            </p>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-number">4</div>
+                <div class="hero-stat-label">Specialists</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">&#8741;</div>
+                <div class="hero-stat-label">Parallel</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">1</div>
+                <div class="hero-stat-label">Pack</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Main ── -->
+<main class="main">
+
+    <!-- Step 1: Select a new hire -->
+    <div class="section">
+        <div class="section-label">
+            <div class="step-num">1</div>
+            <div>
+                <div class="section-title">Select a New Hire</div>
+                <div class="section-subtitle">Click a profile to select it</div>
+            </div>
+        </div>
+
+        <div class="profiles-grid" id="profiles-grid">
+            {# Security: Jinja2 auto-escaping applies to all {{ }} expressions #}
+            {% for p in profiles %}
+            <div class="profile-card"
+                 data-filename="{{ p.filename }}"
+                 data-name="{{ p.name }}"
+                 onclick="selectProfile(this)"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Select {{ p.name }}, {{ p.role }}"
+                 aria-pressed="false"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectProfile(this);}">
+
+                {# Accessible checkmark — shown via CSS when .selected is applied #}
+                <div class="card-check" aria-hidden="true">&#10003;</div>
+
+                <div class="urgency-badge {{ p.urgency }}">
+                    <span class="urgency-dot"></span>
+                    {{ p.urgency_label }}
+                </div>
+
+                <div class="profile-avatar" aria-hidden="true">{{ p.initials }}</div>
+
+                <div class="profile-name">{{ p.name }}</div>
+                <div class="profile-role">{{ p.role }}</div>
+
+                <div class="profile-details">
+                    <div class="profile-detail">
+                        <span class="detail-icon" aria-hidden="true">&#127970;</span>
+                        <span>{{ p.team }}</span>
+                    </div>
+                    <div class="profile-detail">
+                        <span class="detail-icon" aria-hidden="true">&#128197;</span>
+                        <span>Starts {{ p.start_label }}</span>
+                    </div>
+                    <div class="profile-detail">
+                        <span class="detail-icon" aria-hidden="true">&#128205;</span>
+                        <span>{{ p.location }}</span>
+                    </div>
+                    <div class="profile-detail">
+                        <span class="detail-icon" aria-hidden="true">&#127919;</span>
+                        <span>{{ p.level }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Step 2: Start the swarm -->
+    <div class="section">
+        <div class="section-label">
+            <div class="step-num">2</div>
+            <div>
+                <div class="section-title">Start the Swarm</div>
+                <div class="section-subtitle">Dispatches all four specialists in parallel</div>
+            </div>
+        </div>
+        <div class="run-row">
+            <button class="run-btn" id="run-btn" disabled onclick="startOnboarding()" aria-label="Start onboarding process">
+                <span id="run-btn-icon">&#9654;</span>
+                <span id="run-btn-label">Start Onboarding Process</span>
+            </button>
+            <span class="run-hint" id="run-hint">Select a new hire above to continue</span>
+        </div>
+    </div>
+
+    <!-- Step 3: Live stream -->
+    <div class="section" id="stream-section" hidden>
+        <div class="section-label">
+            <div class="step-num">3</div>
+            <div>
+                <div class="section-title">Live Swarm Activity</div>
+                <div class="section-subtitle" id="stream-subtitle">Watch the specialist threads fan out in real-time</div>
+            </div>
+        </div>
+
+        <div class="stream-panel">
+            <div class="stream-panel-bar">
+                <div class="term-dots" aria-hidden="true">
+                    <div class="term-dot r"></div>
+                    <div class="term-dot y"></div>
+                    <div class="term-dot g"></div>
+                </div>
+                <span class="stream-panel-name">quantium-onboarding-swarm</span>
+                <div class="stream-status">
+                    <div class="status-dot" id="status-dot" aria-hidden="true"></div>
+                    <span id="status-text">Idle</span>
+                </div>
+            </div>
+            <div class="stream-log" id="event-log" role="log" aria-live="polite" aria-label="Swarm event log"></div>
+        </div>
+    </div>
+
+    <!-- Step 4: Results -->
+    <div class="section" id="results-section" hidden>
+        <div class="section-label">
+            <div class="step-num">4</div>
+            <div>
+                <div class="section-title">Day-1 Readiness Pack</div>
+                <div class="section-subtitle">Generated by the Quantium AI onboarding swarm</div>
+            </div>
+        </div>
+
+        <div class="results-card">
+            <div class="results-header">
+                <div class="results-header-left">
+                    <div class="results-icon" aria-hidden="true">&#128196;</div>
+                    <div>
+                        <div class="results-title" id="results-title">Onboarding Pack</div>
+                        <div class="results-subtitle">Compiled by Onboarding Lead + 4 specialists</div>
+                    </div>
+                </div>
+                <div class="results-badge">AI Generated</div>
+            </div>
+            <div class="results-body" id="results-body" aria-live="polite"></div>
+        </div>
+    </div>
+
+</main>
+
+<script>
+// ── State ──
+let selectedFilename = null;
+let selectedName     = null;
+let isRunning        = false;
+let resultText       = '';
+let currentSessionId = null;
+let isStreaming      = false;
+
+// ── Profile selection ──
+function selectProfile(card) {
+    if (isRunning) return;
+
+    document.querySelectorAll('.profile-card').forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-pressed', 'false');
+    });
+
+    card.classList.add('selected');
+    card.setAttribute('aria-pressed', 'true');
+    // Security: filename comes from server-rendered data attributes — only valid
+    // allowlisted filenames are ever written here by Jinja (no user input path)
+    selectedFilename = card.dataset.filename;
+    selectedName     = card.dataset.name;
+
+    document.getElementById('run-btn').disabled = false;
+    document.getElementById('run-hint').textContent = 'Ready — click to dispatch the swarm.';
+}
+
+// ── Start onboarding ──
+function startOnboarding() {
+    if (!selectedFilename || isRunning) return;
+
+    isRunning    = true;
+    resultText   = '';
+    isStreaming  = true;
+    currentSessionId = null;
+
+    // Update button
+    const btn = document.getElementById('run-btn');
+    btn.disabled = true;
+    document.getElementById('run-btn-icon').textContent  = '⏳';
+    document.getElementById('run-btn-label').textContent = 'Running…';
+    document.getElementById('run-hint').textContent = 'Swarm in progress — watch the activity feed below.';
+
+    // Update results header
+    document.getElementById('results-title').textContent =
+        `Day-1 Pack — ${selectedName}`;
+
+    // Show stream panel; clear prior content
+    document.getElementById('stream-section').hidden = false;
+    document.getElementById('results-section').hidden = true;
+    document.getElementById('event-log').innerHTML = '';
+    document.getElementById('results-body').innerHTML = '';
+
+    setStatus('live', 'Connecting…');
+
+    // POST to /run, then read SSE from the response body
+    // Security: we only send the allowlisted filename — no free-form user input
+    fetch('/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profile: selectedFilename }),
+    }).then(response => {
+        if (!response.ok) {
+            logEvent('error', `HTTP ${response.status} — could not start the swarm.`);
+            resetState();
+            return;
+        }
+
+        const reader  = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer    = '';
+
+        function readChunk() {
+            reader.read().then(({ done, value }) => {
+                if (done) {
+                    resetState();
+                    return;
+                }
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop(); // keep any incomplete line
+
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        try {
+                            // Security: JSON.parse is safe; we use textContent for
+                            // rendering so AI-generated text cannot execute as HTML
+                            const payload = JSON.parse(line.slice(6));
+                            handleEvent(payload);
+                        } catch (_) {
+                            // Malformed line — ignore (may be SSE keepalive comment)
+                        }
+                    }
+                }
+                readChunk();
+            }).catch(() => {
+                logEvent('error', 'Stream connection lost.');
+                resetState();
+            });
+        }
+
+        readChunk();
+    }).catch(() => {
+        logEvent('error', 'Failed to connect to the server. Is app.py running?');
+        resetState();
+    });
+}
+
+// ── Event dispatch ──
+function handleEvent(payload) {
+    const t = payload.type;
+
+    if (t === 'session_created') {
+        currentSessionId = payload.session_id;
+        setStatus('live', 'Session active');
+        logEvent('session', `Session created — swarm initialised`);
+
+    } else if (t === 'thread_created') {
+        logEvent('spawn', `Thread spawned → ${payload.agent}`);
+
+    } else if (t === 'thread_running') {
+        logEvent('run', `Running → ${payload.agent}`);
+
+    } else if (t === 'delegate') {
+        logEvent('send', `Coordinator → ${payload.to}`);
+
+    } else if (t === 'reply') {
+        logEvent('recv', `${payload.from_agent} → Coordinator`);
+
+    } else if (t === 'tool') {
+        logEvent('tool', `Tool: ${payload.name}`);
+
+    } else if (t === 'text_chunk') {
+        resultText += payload.text;
+        document.getElementById('results-section').hidden = false;
+        renderMarkdown(resultText, true);
+
+    } else if (t === 'done') {
+        isStreaming = false;
+        setStatus('done', 'Complete');
+        logEvent('done', 'Swarm finished — readiness pack ready');
+        // Re-render without the streaming cursor
+        renderMarkdown(resultText, false);
+        // Append session link if we have an ID
+        if (currentSessionId) {
+            appendSessionLink(currentSessionId);
+        }
+        resetState();
+
+    } else if (t === 'error') {
+        isStreaming = false;
+        setStatus('error', 'Error');
+        // Security: payload.text is server-generated; rendered via textContent
+        logEvent('error', payload.text);
+        resetState();
+    }
+}
+
+// ── Log an event line ──
+function logEvent(type, text) {
+    const log = document.getElementById('event-log');
+    const now = new Date().toTimeString().slice(0, 8);
+
+    const tagMap = {
+        session: ['tag-session', 'SESSION'],
+        spawn:   ['tag-spawn',   'SPAWN'],
+        run:     ['tag-run',     'RUN'],
+        send:    ['tag-send',    'SEND'],
+        recv:    ['tag-recv',    'RECV'],
+        tool:    ['tag-tool',    'TOOL'],
+        done:    ['tag-done',    'DONE'],
+        error:   ['tag-error',   'ERROR'],
+    };
+    const [tagClass, tagLabel] = tagMap[type] || ['tag-tool', type.toUpperCase()];
+
+    const line = document.createElement('div');
+    line.className = 'event-line';
+
+    const tsEl = document.createElement('span');
+    tsEl.className = 'event-ts';
+    tsEl.textContent = now; // Security: textContent, not innerHTML
+
+    const tagEl = document.createElement('span');
+    tagEl.className = `event-tag ${tagClass}`;
+    tagEl.textContent = tagLabel;
+
+    const txtEl = document.createElement('span');
+    txtEl.className = 'event-text';
+    txtEl.textContent = text; // Security: textContent — prevents XSS from event data
+
+    line.append(tsEl, tagEl, txtEl);
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+}
+
+// ── Update status indicator ──
+function setStatus(state, label) {
+    const dot  = document.getElementById('status-dot');
+    const text = document.getElementById('status-text');
+    dot.className = `status-dot${state ? ' ' + state : ''}`;
+    text.textContent = label; // Security: textContent
+}
+
+// ── Safe markdown → DOM renderer ──
+// Builds DOM nodes exclusively via createElement/textContent — no innerHTML
+// with untrusted data, preventing XSS even when rendering AI-generated text.
+function renderMarkdown(md, streaming) {
+    const body = document.getElementById('results-body');
+    body.innerHTML = ''; // clear before re-render
+
+    const lines   = md.split('\n');
+    let i         = 0;
+    let list      = null;
+    let listType  = null;
+    let inCode    = false;
+    let codeLines = [];
+
+    function flushList() {
+        if (list) { body.appendChild(list); list = null; listType = null; }
+    }
+
+    function makeEl(tag, text, className) {
+        const el = document.createElement(tag);
+        if (className) el.className = className;
+        if (text !== undefined) el.textContent = text; // Security: textContent only
+        return el;
+    }
+
+    // Inline bold: splits on **…** and builds text/strong nodes safely
+    function inlineNodes(raw) {
+        const parts = raw.split(/\*\*(.*?)\*\*/g);
+        return parts.map((s, j) => {
+            if (j % 2 === 0) return document.createTextNode(s);
+            const strong = document.createElement('strong');
+            strong.textContent = s; // Security: textContent
+            return strong;
+        });
+    }
+
+    while (i < lines.length) {
+        const line = lines[i];
+
+        // Code fence
+        if (line.startsWith('```')) {
+            if (!inCode) {
+                flushList(); inCode = true; codeLines = [];
+            } else {
+                inCode = false;
+                const pre  = document.createElement('pre');
+                const code = makeEl('code', codeLines.join('\n'));
+                pre.appendChild(code);
+                body.appendChild(pre);
+            }
+            i++; continue;
+        }
+
+        if (inCode) { codeLines.push(line); i++; continue; }
+
+        // Headings
+        const h1m = line.match(/^# (.+)$/);
+        const h2m = line.match(/^## (.+)$/);
+        const h3m = line.match(/^### (.+)$/);
+
+        if (h1m) { flushList(); body.appendChild(makeEl('h1', h1m[1])); i++; continue; }
+        if (h2m) { flushList(); body.appendChild(makeEl('h2', h2m[1])); i++; continue; }
+        if (h3m) { flushList(); body.appendChild(makeEl('h3', h3m[1])); i++; continue; }
+
+        // HR
+        if (line.match(/^-{3,}$/) || line.match(/^={3,}$/)) {
+            flushList(); body.appendChild(document.createElement('hr')); i++; continue;
+        }
+
+        // Blockquote
+        const bqm = line.match(/^>\s?(.+)$/);
+        if (bqm) {
+            flushList();
+            const bq = makeEl('blockquote', bqm[1]);
+            body.appendChild(bq);
+            i++; continue;
+        }
+
+        // Unordered list
+        const ulm = line.match(/^[-*+] (.+)$/);
+        if (ulm) {
+            if (listType !== 'ul') { flushList(); list = document.createElement('ul'); listType = 'ul'; }
+            const li = document.createElement('li');
+            inlineNodes(ulm[1]).forEach(n => li.appendChild(n));
+            list.appendChild(li);
+            i++; continue;
+        }
+
+        // Ordered list
+        const olm = line.match(/^\d+\. (.+)$/);
+        if (olm) {
+            if (listType !== 'ol') { flushList(); list = document.createElement('ol'); listType = 'ol'; }
+            const li = document.createElement('li');
+            inlineNodes(olm[1]).forEach(n => li.appendChild(n));
+            list.appendChild(li);
+            i++; continue;
+        }
+
+        // Empty line
+        if (line.trim() === '') { flushList(); i++; continue; }
+
+        // Paragraph with inline bold
+        flushList();
+        const p = document.createElement('p');
+        inlineNodes(line).forEach(n => p.appendChild(n));
+
+        // Add blinking cursor to last paragraph while streaming
+        if (streaming && i === lines.length - 1) {
+            p.classList.add('streaming-cursor');
+        }
+
+        body.appendChild(p);
+        i++;
+    }
+
+    flushList();
+}
+
+// ── Append session link ──
+function appendSessionLink(sessionId) {
+    const body = document.getElementById('results-body');
+    const box  = document.createElement('div');
+    box.className = 'session-link-box';
+
+    const icon = document.createTextNode('🔗 ');
+    const label = document.createTextNode('View full session (all sub-agent threads): ');
+
+    const link = document.createElement('a');
+    // Security: sessionId is returned by the Anthropic API — resource identifier,
+    // not user input; we construct the URL using a fixed base prefix
+    const SESSION_BASE = 'https://platform.claude.com/sessions/';
+    link.href = SESSION_BASE + encodeURIComponent(sessionId);
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer'; // Security: prevent opener access
+    link.textContent = SESSION_BASE + sessionId;
+
+    box.append(icon, label, link);
+    body.appendChild(box);
+}
+
+// ── Reset state after run completes or errors ──
+function resetState() {
+    isRunning = false;
+
+    const btn = document.getElementById('run-btn');
+    btn.disabled = (selectedFilename === null);
+    document.getElementById('run-btn-icon').textContent  = '▶';
+    document.getElementById('run-btn-label').textContent = 'Start Onboarding Process';
+    document.getElementById('run-hint').textContent = selectedFilename
+        ? 'Run again to regenerate.'
+        : 'Select a new hire above to continue';
+}
+</script>
+
+</body>
+</html>
