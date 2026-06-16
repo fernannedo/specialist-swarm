@@ -1,0 +1,19 @@
+# Secrets / local env
+.env
+.env.*
+
+# Generated agent + session state (written by the scripts)
+.environment_id
+.coordinator_id
+.specialist_ids.json
+.skill_ids.json
+.last_session_id
+
+# Swarm output artifacts
+outputs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
