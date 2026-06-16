@@ -20,9 +20,10 @@ from anthropic.lib import files_from_dir
 
 # Map skill directory name → specialist key that should get it
 SKILL_TO_SPECIALIST = {
-    "pricing-playbook": "pricing",
-    "legal-checklist":  "legal",
-    "competitive-intel": "competitive",
+    "recruiter-checklist": "recruiter",
+    "it-provisioning":     "it_provisioning",
+    "buddy-pool":          "buddy_match",
+    "welcome-content":     "welcome_packet",
 }
 
 
@@ -95,7 +96,7 @@ def main() -> None:
 
     Path(".skill_ids.json").write_text(json.dumps(uploaded, indent=2))
     print(f"\nUploaded {len(uploaded)} skills and attached them to specialists.")
-    print("Next: python run_deal_desk.py")
+    print("Next: python create_coordinator.py")
 
 
 if __name__ == "__main__":
